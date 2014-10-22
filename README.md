@@ -1,4 +1,6 @@
-## Notes on [JavaScript Patterns](http://shop.oreilly.com/product/9780596806767.do) By Stoyan Stefanov
+# Notes on [JavaScript Patterns](http://shop.oreilly.com/product/9780596806767.do) By Stoyan Stefanov
+
+## CHAPTER 1 Introduction
 
 ### JavaScript
 
@@ -178,3 +180,78 @@ console.dir(obj);
 // age "90"
 // anotherObj Object { foo="foo"}
 ```
+
+If you have installed nodejs you can write code in your terminal simply by typing `node` command and then you wull enter the node environment.
+
+
+## CHAPTER 2 Essentials
+
+### Maintainable code means code that:
+
+- Is readable
+- Is consistent
+- Is predictable
+- Looks as if it was written by the same person
+- Is documented
+
+### Minimizing Globals
+
+Variables declared inside a function scope are considered local to that function and not accessible outside it. So global variables are those who declared outside the function or declared without using the `var` keyword inside of the function.
+
+For every global variable created it will be attached to the global environment object, in the browser this global object is `window` or `this`.
+
+``` javascript
+global = "I'm the global variable";
+
+// All the output will return => I'm the global variable
+console.log(global);
+console.log(window.global);
+console.log(this.global);
+```
+
+``` javascript
+function names() {
+  global = 'global';
+  var local = 'local';
+}
+
+names();
+
+global; // global
+local;  // undefined
+```
+
+So the point here is always use the `var` keyword in declaring variables and stay away from globals.
+
+
+#### Problems with global variables
+
+- Shared on all the code base
+- Are all on the global object and can make conflicts with other name from other thied party plugin.
+
+### Using `delete` to delete variables
+
+- variables declared using the `var` keyword can't be deleted.
+- Variables created in the global can be deleted, this is because thay are properties of the global object.
+
+``` javascript
+var global = 'global';
+
+global_novar = 'global_novar';
+
+(function(){
+	global_inside_func = 'global_inside_func';
+})();
+
+// when trying to delete this in `strict mode` it will throw error.
+delete global; // false
+
+delete global_novar; // true
+
+delete global_inside_func; // true
+
+```
+
+#### The global Object
+
+#### Single var pattern
