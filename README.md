@@ -33,27 +33,27 @@ Higher-order function :: a function that does at least one of the following
  - Takes one or more functions as an input
  - Outputs a function
 
-Patterns
+#### Patterns
 
 In software development, a pattern is a solution to a common problem. A pattern is not necessarily a code solution ready for copy-and-paste but more of a best practice, a useful abstraction, and a template for solving categories of problems.
 
-Antipattern
+#### Antipattern
 
 An anti-pattern is not the same as a bug or a coding error; it’s just a common approach that causes more problems than it solves.
 
-Importance of Design Patterns
+#### Importance of Design Patterns
 
  - Write better code using best practice.
  - A mean of abstraction without dive in details.
  - Improve communication between teamwork.
 
-None Objects in javascript (premitive types)
+#### None Objects in javascript (premitive types)
 
-		Number
-		String
-		Boolean
-		null
-		undefined
+- Number
+- String
+-	Boolean
+-	null
+-	undefined
 
 Number, String & Boolean have corresponding object representation in the form of primitive wrappers and could be converted either by the programmer or by JS interpreter behind the scene.
 
@@ -254,3 +254,150 @@ delete global_inside_func; // true
 #### The global Object
 
 #### Single var pattern
+
+Single var pattern can be used at the top of functions for using one `var` statement to declare multiple variables by commas and hase some benefits:
+
+- Provide a single place for declaring function variables.
+- Help to avoid the hoisting problem.
+- Help to minimize global variables.
+- Less code.
+
+``` javascript
+function getUserInfo() {
+  var name = 'Ahmad',
+      email = 'ahmad@email.com',
+      address = {};
+}
+```
+
+It's also a good practise to declare initial value to variables as seen in the above `address` object, this can increase code readability.
+
+#### Hoisting
+Javascript always consider a variable ad declared even it's uded before the var declaration.
+
+``` javascript
+function hoist() {
+  console.log(foo); // undefined
+  var foo = 'foo';
+  console.log(foo); // foo
+}
+
+hoist();
+```
+
+So it's always best practice to declare variables first in the function scope.
+
+
+#### for Loops
+
+One way to make for Loops more speed and increaes the performance is to cache the length of the array (collection) you are iterating over, so instead of doing something like this
+
+``` javascript
+var arr = [1,2,3,4,5,6];
+
+for (var i = 0; i < arr.length; i += 1) {
+  console.log(arr[i]);
+}
+```
+
+We can do this
+
+``` javascript
+var arr = [1,2,3,4,5,6];
+
+for (var i = 0, length = arr.length; i < length; i += 1) {
+  console.log(arr[i]);
+}
+```
+
+This way we iterate the array length only once and then use it during the loop, this is useful especially when we are trying to iterate over large number of DOM collections.
+
+
+#### for-in Loops
+
+for-in Loops used to loop over none array objects and it's called enumeration.
+for-in Loops can be used to loop over arrays but it's not recommended.
+
+When iterating over Object's it's always recommened to use the `hasOwnProperty()` method so we can filter the properties that can come from the prototype chain. Consider the folowing example.
+
+``` javascript
+var object = {
+  name: 'Name',
+  email: 'mail@gmail.com'
+};
+
+Object.prototype.newMethod = function(){ return 'prototype chain'; };
+
+object.newMethod(); // prototype chain
+
+for (i in object) {
+  console.log(object[i]);
+}
+
+=>
+
+// Name
+// mail@gmail.com
+// function()
+
+```
+
+So as you can see the `newMethod()` method becomes a property of our created object becuse it inherites it from the prototype chain, so whenever we loop over `object` the `newMethod()` method will be returned as a property. to avoid this you can use the `hasOwnProperty()` method to filter the result and return only the `object` main properties.
+
+``` javascript
+for (i in object) {
+  if (object.hasOwnProperty(i)) {
+  console.log(object[i]);
+  }
+}
+
+// Name
+// mail@gmail.com
+```
+
+#### Augmenting Built-in Prototypes
+
+Confused about this shit especially when it comes to a question like [this](http://stackoverflow.com/questions/1372829/javascript-augmenting-basic-types-prototype-inheritance-doubt). Will investigate more time on it.
+
+
+#### switch Pattern
+
+The author suggested some rules to oncrease the readibilty of the switch Pattern.
+
+- Aligning each case with switch (an exception to the curly braces indentation rule).
+- Indenting the code within each case.
+- Ending each case with a clear break;.
+- Avoiding [fall-throughs](http://stackoverflow.com/questions/188461/switch-statement-fallthrough-should-it-be-allowed) (when  you omit the break intentionally). If you’re abso- lutely convinced that a fall-through is the best approach, make sure you document such cases, because they might look like errors to the readers of your code.
+- Ending the switch with a default: to make sure there’s always a sane result even if none of the cases matched.
+
+``` javascript
+var name = 'Ahmad', result;
+
+switch(name) {
+case 'Ahmad':
+  result = 'Ahmad';
+  break;
+case 'foo':
+  result = 'foo';
+  break;
+default:
+  result = 'default';
+}
+
+result;
+```
+
+#### Typecast
+
+Always use the the strict equality operator (===) to compare between two values instead of using the equality operator ==, this will prevent JS from implicitly convert types.
+
+``` javascript
+var zero = 0;
+0 == false; // true :)
+0 === false; // false :(
+```
+[Implicit data type conversion in JavaScript when comparing integer with string using ==](http://stackoverflow.com/questions/7625144/implicit-data-type-conversion-in-javascript-when-comparing-integer-with-string-u).
+
+#### Avoiding eval()
+
+Just avoid it.
