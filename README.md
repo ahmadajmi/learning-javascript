@@ -47,7 +47,7 @@ Importance of Design Patterns
  - A mean of abstraction without dive in details.
  - Improve communication between teamwork.
 
-None Objects in javascript
+None Objects in javascript (premitive types)
 
 		Number
 		String
@@ -116,7 +116,7 @@ Defined by the host environment (for example, the browser environment). Like win
 
 ### Classes in JavaScript
 
-Simply NO classes in JS, but all you want it objects.
+Simply NO classes in JS, but all you want is objects.
 
 [Inheritance VS compositions in JavaScript]( http://stackoverflow.com/questions/8696695/composition-inheritance-and-aggregation-in-javascript)
 
@@ -146,7 +146,6 @@ Strict Mode https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/St
 [JSlint](http://www.jslint.com/)
 
 [JShint](http://www.jshint.com/)
-
 
 ### The console
 
@@ -181,7 +180,7 @@ console.dir(obj);
 // anotherObj Object { foo="foo"}
 ```
 
-If you have installed nodejs you can write code in your terminal simply by typing `node` command and then you wull enter the node environment.
+If you have installed nodejs you can write code in your terminal simply by typing `node` command and then you will enter the node environment.
 
 
 ## CHAPTER 2 Essentials
@@ -227,12 +226,12 @@ So the point here is always use the `var` keyword in declaring variables and sta
 #### Problems with global variables
 
 - Shared on all the code base
-- Are all on the global object and can make conflicts with other name from other thied party plugin.
+- Are all on the global object and can make conflicts with other name from other third party plugin.
 
 ### Using `delete` to delete variables
 
 - variables declared using the `var` keyword can't be deleted.
-- Variables created in the global can be deleted, this is because thay are properties of the global object.
+- Variables created in the global can be deleted, this is because they are properties of the global object.
 
 ``` javascript
 var global = 'global';
