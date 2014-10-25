@@ -401,3 +401,152 @@ var zero = 0;
 #### Avoiding eval()
 
 Just avoid it.
+
+
+#### Number Conversions with parseInt()
+
+`parseInt()` functions is used to convert a string to integer.
+
+``` javascript
+parseInt("abc");     // Returns NaN.
+parseInt("12abc");   // Returns 12.
+```
+
+The function accepts a second parameter called radix and it shoud be specefied and if not strings with a prefix of '0x' are considered hexadecimal.
+
+Read more on [parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
+
+
+### Coding Conventions
+
+#### Indentation
+
+Always consider making a desision on code indentation. This will help you and your team. Personally I use [EditorConfig](http://editorconfig.org/).
+
+#### Curly Braces
+
+Always use them even with a single statement in a foor loop
+
+``` javascript
+// bad practice
+for (var i = 0; i < 10; i += 1)
+  alert(i);
+```
+
+``` javascript
+// better
+for (var i = 0; i < 10; i += 1) {
+  alert(i); }
+```
+
+#### Opening Brace Location
+
+Always use curly beaces and always put the opening one on the same line, for example
+
+
+``` javascript
+// Bad
+
+// This function will return undefined :).
+// this is becuse the semicolon insertion mechanism in JS that will insert semicolon at the end of the return
+
+function curly(){
+  return
+  {
+    name: 'name'
+  };
+}
+
+The preceding code is equlivant to this one
+function curly(){
+  return undefined;
+  // this code is not reachable
+  {
+    name: 'name'
+  };
+}
+
+// Good
+function curly(){
+  return {
+    name: 'name'
+  };
+}
+```
+
+Always use semicolon and don't trust JS to implicitly insert it for you.
+
+#### White Space
+
+Some awesome resources for JavaScript Style Guide
+
+- [idiomatic.js](https://github.com/rwaldron/idiomatic.js)
+- [airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
+- [JavaScript Style Guides And Beautifiers](http://addyosmani.com/blog/javascript-style-guides-and-beautifiers/)
+- [Google JavaScript Style Guide](https://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
+- [Code Conventions for the JavaScript Programming Language ](http://javascript.crockford.com/code.html)
+
+#### Naming Conventions
+
+Choosing a consistent naming for variables and functions
+
+- Capitalizing Constructors
+
+To make it easy to see the diference between a normal and a constructor function always capitalize the constructor function name.
+
+``` javascript
+var person = new Person();
+```
+
+- Separating Words
+For function and method names you can use lower camel case, for example
+
+
+``` javascript
+ getFirstName()
+```
+
+For variable names use lowercase words delimited by commas
+
+``` javascript
+ first_name
+ last_name
+```
+
+So this helps you ditinguish between functions and other identifiers.
+
+If you have such a constant variable (JS have no constants), you can adopt a convention by using all-caps for naming variables.
+
+``` javascript
+ var PI = 3.14;
+ last_name
+```
+
+In some cases some developers use `_` underscore prefix such as a convention for indicating a private function of method. It doesn't provide any privacy it's just a convention. [In Javascript, what does this underscore mean?](http://stackoverflow.com/questions/8288756/in-javascript-what-does-this-underscore-mean?lq=1).
+
+#### Writing Comments
+
+->  In this book we don't use many comments; we try to make our programs self-documenting by using descriptive names.
+    [SICP](http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-15.html#footnote_Temp_197)
+
+[ I've never seen a language's style guide recommend avoiding comments before](https://news.ycombinator.com/item?id=8073230)
+
+#### Writing API Docs
+
+[YUIDoc - Javascript Documentation Tool](http://yui.github.io/yuidoc/)
+[JSDoc vs YUIDoc vs Doxx vs Docco – Choosing a JavaScript documentation generator](http://blog.fusioncharts.com/2013/12/jsdoc-vs-yuidoc-vs-doxx-vs-docco-choosing-a-javascript-documentation-generator/)
+
+#### Peer Reviews
+
+Try to peer review your code with your coworker, so you will get a feedback about making your code better and exchange knowledge and learn from each other.
+
+#### Minify code in production
+
+Minification is the process of eliminating white space, comments to decrease the size of the JavaScript that will be transfered from the server to the browser, this will help increase the peroformance.
+
+[Minify files with UglifyJS](https://github.com/gruntjs/grunt-contrib-uglify)
+
+
+#### Use Lint tool
+
+As mentioned before always use a lint to detect errors and potential problems in your JavaScript code. [JSlint](http://www.jslint.com/) or [JShint](http://www.jshint.com/)
