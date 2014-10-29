@@ -1,6 +1,6 @@
 # Notes on [JavaScript Patterns](http://shop.oreilly.com/product/9780596806767.do) By Stoyan Stefanov
 
-## CHAPTER 1 Introduction
+## CHAPTER 1 / Introduction
 
 ### JavaScript
 
@@ -183,7 +183,7 @@ console.dir(obj);
 If you have installed nodejs you can write code in your terminal simply by typing `node` command and then you will enter the node environment.
 
 
-## CHAPTER 2 Essentials
+## CHAPTER 2 / Essentials
 
 ### Maintainable code means code that:
 
@@ -550,3 +550,60 @@ Minification is the process of eliminating white space, comments to decrease the
 #### Use Lint tool
 
 As mentioned before always use a lint to detect errors and potential problems in your JavaScript code. [JSlint](http://www.jslint.com/) or [JShint](http://www.jshint.com/)
+
+
+### Chapter 3 / Literals and Constructors
+
+#### Object Literal
+
+Objects are a list of key-value pairs.
+
+Values can be primitives or other objects (properties), also values can be functions (methods).
+
+Objects are mutable at any time, so you can add, change, remove properties any time. To make the object immutable you can use [Object.freeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
+
+On the other hand immutable means that things can't be changed or modified.
+
+``` javascript
+  var object = { };
+
+  // Add property
+  object.name = 'Ahmad';
+  object.name; // Ahmad
+
+  // Add method
+  object.getName = function() {
+    return this.name;
+  };
+  object.getName(); // Ahmad
+
+  // Delete property
+  delete object.name;
+  object.name; // undefined
+```
+
+#### Javascript object constructor vs object literal.
+
+There is no classes in JS, but is has constructor functions which uses syntax similar to class based languages
+
+Objects can be used by your own constructor functions or some built-in JS objects like `Date()` and `Object()`.
+
+So now we can see two ways to create a new object
+
+``` javascript
+  // using the Object constructor
+  var obj = new Object();
+
+  // using the object literal
+  var obj = { };
+```
+
+##### object literal pros
+
+- Shorter to type
+- Emphazies that objects are simple mutable hashes and not somthing that needs to be backed from a class.
+
+##### More info
+
+- [Object literal vs constructor+prototype](http://stackoverflow.com/questions/17260603/object-literal-vs-constructorprototype)
+- [Should I be using object literals or constructor functions?](http://stackoverflow.com/questions/4859800/should-i-be-using-object-literals-or-constructor-functions)
