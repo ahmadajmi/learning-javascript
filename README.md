@@ -584,7 +584,7 @@ On the other hand immutable means that things can't be changed or modified.
 
 #### Javascript object constructor vs object literal.
 
-There is no classes in JS, but is has constructor functions which uses syntax similar to class based languages
+There is no classes in JS, but is has constructor functions which uses syntax similar to class based languages.
 
 Objects can be used by your own constructor functions or some built-in JS objects like `Date()` and `Object()`.
 
@@ -605,5 +605,185 @@ So now we can see two ways to create a new object
 
 ##### More info
 
-- [Object literal vs constructor+prototype](http://stackoverflow.com/questions/17260603/object-literal-vs-constructorprototype)
-- [Should I be using object literals or constructor functions?](http://stackoverflow.com/questions/4859800/should-i-be-using-object-literals-or-constructor-functions)
+- [Why use {} instead of new Object() and use [] instead of new Array() and true/false instead of new Boolean()?](http://stackoverflow.com/questions/4292048/why-use-instead-of-new-object-and-use-instead-of-new-array-and-true-fa)
+
+On the other hand there is a trick when using the `new Object()` to consider it when seeing it used in other code or when you think about using it.
+
+The `new Object()` can acccept a parameter and depending on this parameter it will delegate the object creaion to another built-in constructor and return a different object.
+
+``` javascript
+  var obj = new Object();
+
+  obj.constructor === Object; // => true
+
+  var obj = new Object(1);
+
+  obj.constructor === Number; // => true
+
+
+  var obj = new Object('foo');
+
+  obj.constructor === String; // => true
+
+```
+
+So as you can see the constructor is changed based on the typeof passed argument. The author recomended to not using it and instead use the literal method.
+
+#### Custom Constructor Functions
+
+In addiotion to creating object using the literal and the built-in constructor funcitons, you can create objects using your own constructor functions.
+
+``` javascript
+var Person = function(name) {
+  this.name = name;
+  this.hi = function() {
+    return 'Hi' + this.name;
+  };
+};
+
+var ahmad = new Person('Ahmad');
+
+ahmad.hi(); // => "Hi Ahmad"
+```
+
+What happens when you invoke `Perosn` constructor function with `new`
+
+- An empty object is created and referenced by `this` variable, inheriting the prototype of the function.
+- Properties and methods are added to the object referenced by `this`.
+- The newly created object is referenced by `this` is returned at the end implicitly (if no other object is returned explicitly).
+
+We can see how the above code is doing behind the scenes as:
+
+``` javascript
+var Person = function(name) {
+
+  // create new object
+  // using the object literal
+  // var this = {};
+  // or more accurate
+  // var this = Object.create(Person.prototype); // this will be discussed later on the book
+
+  this.name = name;
+  this.hi = function() {
+    return 'Hi' + this.name;
+  };
+
+  // return this;
+};
+
+var ahmad = new Person('Ahmad');
+
+ahmad.hi(); // => "Hi Ahmad"
+```
+
+As we said the newly created object referenced by `this` is returned at the end implicitly, so what if we returned an object explicitly as
+
+``` javascript
+var Person = function(name) {
+  this.name = name;
+  this.hi = function() {
+    return 'Hi' + this.name;
+  };
+
+  // Let's return something
+  // This should be an object
+  // If the returned is something not an object it's simply
+  // ignored and the object referenced by `this` will be returned instead
+  return {
+    foo: 'foo',
+    bar: 'bar'
+  };
+};
+
+var ahmad = new Person('Ahmad');
+
+ahmad.hi(); // => ahmad.hi is not a function :) (:
+
+ahmad.foo; // => 'foo'
+```
+
+For the methods inside the constructor, it's recommended to the `hi` method to the prototype of the `Person`. Th eproblem is every time you call the `new Person()` a new function is created in the memory and this is inefficient because `say()` method doesn't change from one instance to the next.
+
+So next time reusable members such as methods should be added to the prototype.
+
+``` javascript
+  var Person = function(name) {
+    this.name = name;
+  };
+
+  Person.prototype.hi = function() {
+    return 'Hi ' + this.name;
+  }
+
+  var ahmad = new Person('Ahmad');
+
+  ahmad.hi(); // => "Hi Ahmad"
+```
+
+#### Calling the constructor without using `new`
+
+What if you called the constructor function without `new`, the `this` inside the constructor will now point to the `window` object. for example if you defined `this.foo`, this actually create a new property in the global object calld `foo` and accessible through `window.foo` or just `foo`
+
+``` javascript
+  function Person() {
+    this.foo = 'foo';
+  }
+
+  console.log(window.foo); // undefined
+
+  var per = Person();
+
+  console.log(foo); // foo
+  console.log(window.foo); // foo
+
+  console.log(per.foo); // TypeError: per is undefined
+```
+
+Using `use strict';` will help you avoid forgetting `new` and the browser will complain about it, so always use `use strict';`.
+
+
+#### Naming Convention
+
+- UpperCase the first letter in constructor names (Person, MyConstructor).
+- Lowercase first letter in normal functions and methods (myMethod).
+
+#### Using that
+
+Somethimes `this` can refer to another scope and refer to something else, for example suppose you want to call a constructor method inside a DOM event, in this case `this` will refer to the DOM element not the created object.
+
+``` html
+  <button id="button">Alert Name</button>
+```
+
+``` javascript
+var Person = function(name) {
+  this.name = name;
+  var that = this;
+  this.sayHi = function() {
+    alert(that.name);
+  };
+};
+```
+
+``` javascript
+  var ahmad = new Person('Ahmad');
+  var element = document.getElementById('button');
+  element.addEventListener('click', ahmad.sayHi); // => Ahmad
+```
+
+[Demo](http://jsbin.com/degaja/1/)
+
+The solution above will assing `this` to `that` then we can and access the name property inside the `sayHi` method from `that`, so this can be called without issues inside the DOM call.
+
+Another solution is to assign an empty `that` object and add properties and methods to it and then return it. But with this solution you lost the `prototype` of the constructor.
+
+``` javascript
+var Person = function(name) {
+  var that = {};
+  that.name = name;
+  that.sayHi = function() {
+    alert(that.name);
+  };
+  return that;
+};
+```

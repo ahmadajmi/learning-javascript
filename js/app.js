@@ -1,27 +1,57 @@
 'use strict';
 
-// Websoket Basic Example
+/**
+ * Websoket Basic Example
+ */
 
-var ws = new WebSocket('wss://echo.websocket.org');
+ var wsURL = 'wss://echo.websocket.org';
+ var ws = new WebSocket(wsURL);
 
-ws.onopen = function(event) {
-  console.log(event);
-  document.getElementById('connected').innerHTML = 'Connected';
+/**
+ * readyState represents the state of the connection, with following values:
+ * 0 => Connecting
+ * 1 => Open
+ * 2 => Closing
+ * 3 => Closed
+ *
+ * Websocket Handshake
+ * - The client send an upgrade request.
+ * - The server sends an upgrade response.
+ * - Then the readyState changed to 1 indicating the connection is open.
+ * - Then we can listen to messages (message event).
+ */
+
+/**
+ * Event Handlers
+ */
+
+ ws.onopen = function(e) {
   var msg = {
-    name: 'name' ,
+    name: 'name',
     age: 90
   };
-  ws.send(msg);
+
+  document.getElementById('connected').innerHTML = 'Connected';
+  ws.send(JSON.stringify(msg));
 };
 
-ws.onerror = function(error) {
-  console.log(error);
-  document.getElementById('error').innerHTML = 'error';
-};
-
-ws.onmessage = function(data) {
-  console.dir(data);
+ws.onmessage = function(e) {
+  console.log('Data from the server => ' + e.data);
   document.getElementById('message').innerHTML = 'message';
 };
 
-// End Websoket Example
+ws.onclose = function(e) {
+  console.log('close');
+};
+
+ws.onerror = function(e) {
+  document.getElementById('error').innerHTML = 'error';
+};
+
+
+
+
+
+
+
+
