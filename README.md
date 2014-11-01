@@ -741,6 +741,30 @@ What if you called the constructor function without `new`, the `this` inside the
 
 Using `use strict';` will help you avoid forgetting `new` and the browser will complain about it, so always use `use strict';`.
 
+#### Self-Invoking Constructor
+
+What about if we can call the contructor without using `new` by using Self-Invoking Constructor. It's a way for the constructor to invoke itself if it was called without the `new` keyword. Let's see a simplified example from [socket.io
+](https://github.com/Automattic/socket.io/blob/master/lib/index.js#L38).
+
+``` javascript
+  function Server() {
+    if (!(this instanceof Server)) return new Server();
+    this.url = '/socket.io';
+  }
+
+  //
+  var ws = Server();
+  ws.url; // => "/socket.io"
+
+  var ws = new Server();
+  ws.url; // => "/socket.io"
+```
+
+``` javascript
+  this instanceof Server
+```
+
+So now there will no be any issues if the end developer called the `Server` constructor without the `new` keyword. You can read more about this on [Simple “Class” Instantiation](http://ejohn.org/blog/simple-class-instantiation/).
 
 #### Naming Convention
 
@@ -787,3 +811,4 @@ var Person = function(name) {
   return that;
 };
 ```
+
