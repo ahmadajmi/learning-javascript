@@ -760,10 +760,6 @@ What about if we can call the contructor without using `new` by using Self-Invok
   ws.url; // => "/socket.io"
 ```
 
-``` javascript
-  this instanceof Server
-```
-
 So now there will no be any issues if the end developer called the `Server` constructor without the `new` keyword. You can read more about this on [Simple “Class” Instantiation](http://ejohn.org/blog/simple-class-instantiation/).
 
 #### Naming Convention
