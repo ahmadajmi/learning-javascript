@@ -47,11 +47,3 @@ ws.onclose = function(e) {
 ws.onerror = function(e) {
   document.getElementById('error').innerHTML = 'error';
 };
-
-
-
-
-
-
-
-

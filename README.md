@@ -808,3 +808,63 @@ var Person = function(name) {
 };
 ```
 
+#### Array Literal
+
+Arrays are objects too, they can be created by using `Array()` constructor but as we saw in Objects it's prefered to use array literals to create new array.
+
+``` javascript
+  // using Array constructor
+  var arr = new Array(1,2,3);
+
+  // using array literal
+  var arr = [1,2,3];
+
+  arr.constructor === Array; // => true
+```
+
+Another reason to avoind Array constructor is that when you pass one parameter to it, this one parameter will not be an element, but the length of the array.
+
+``` javascript
+  var arr = new Array(10);
+
+  arr.length; // => 10
+  arr[1];     // => undefined
+```
+
+#### Check for Array-ness
+
+What about if you want to check if the object is an array or not.
+
+Using the `typeof` operator is not accurate as it will return `"object"`.
+
+``` javascript
+  var arr = [1,2,3,4];
+  typeof arr; // => object
+```
+
+To check if the variable is exactly array or not we can use `Array.isArray(obj)` method that will return `true` or `false`.
+
+``` javascript
+  var arr = [1,2,3,4];
+  Array.isArray(arr); // => true
+```
+
+[MDN Array.isArray()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)
+
+#### JSON
+
+JSON (JavaScript Object Notation) is a data transfere format. It's actually a combination of the object and array literal notations.
+
+``` javascript
+  var json = '{"name": "Ahmad", "age": 89, "friends": [1,2,3]}';
+
+  // To convert json to object, use JSON.parse() method
+  var data = JSON.parse(json);
+  data.name; // => Ahmad
+
+  // To convert object to json format, use JSON.stringify() method
+  var object = {name: "Ahmad", age: 89, friends: [1,2,3]};
+  var json = JSON.stringify(object);
+  json; // => "{"name":"Ahmad","age":89,"friends":[1,2,3]}"
+```
+
