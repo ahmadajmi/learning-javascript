@@ -868,3 +868,81 @@ JSON (JavaScript Object Notation) is a data transfere format. It's actually a co
   json; // => "{"name":"Ahmad","age":89,"friends":[1,2,3]}"
 ```
 
+#### Regular Expressions
+
+Regular expressions are also Objects and there are two options to create them
+
+- Using `new RegExp()` constructor.
+- Using the regular expression literal.
+
+``` javascript
+  // Literal
+  var regx = /\\/gm;
+  // Constructor
+  var regx = new RegExp('\\\\', 'gm');
+```
+
+Some reasons for using the literal syntax
+
+- Shorter and doesn't force you to think of class like constructor.
+- The RegEx constructor needs more typing, like the neeed to escape quotes and double-escape backslashes.
+
+##### Regex literal syntax
+
+The syntax is consist of two things, the pattern and the pattern modifier.
+The pattern is wrapped in forward slashes.
+The pattern modifier can represent different meaning like
+
+- `g` : Global matching
+- `m` : multiline
+- `i` : Case-insensetive matching
+
+So the literal syntax can be represented as
+
+``` javascript
+  var regx = /pattern/gmi;
+```
+
+The literal syntax can be passed as a parameter to another method, for example
+
+``` javascript
+  var remove_space = "spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
+```
+
+#### Primitive Wrappers
+
+The `number`, `string` and `boolean` primitive types have something called primitive wrapper objects
+
+``` javascript
+  // Primitive number
+  var primitive_number = 90;
+  typeof primitive_number; // => "number"
+
+  // Number Object
+  var number_object = new Number(90);
+  typeof number_object; // => "object"
+```
+
+If you wonder how you can call a method such as `toUpperCase()` on a primitive string, Javascript will temporairly convert the primitive into an object behind the scenes and behaves as it was an object.
+
+``` javascript
+  // In the prevous regex example we used the replace method on the string
+  var remove_space = "spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
+
+  // It's the same way as
+  var remove_space = new String("spaces will be removed");
+  remove_space.replace(/\s/gm, ''); // => "spaceswillberemoved"
+```
+
+#### Error Objects
+
+JavaScript includes some built-in error constructor such as `Error()` and `SyntaxError()` used with the `throw` statement.
+The created error object created by theses constructors have some properties like:
+
+- `name` - The name property of the constructor that created the object. (`Error` for example).
+- `message` - The string passted to the constructor when creating the object.
+
+You can use the `throw` statement with any object not just with the built-in constructors so you can customize your own error.
+
+[MDN Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+
