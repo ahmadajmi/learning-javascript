@@ -85,7 +85,6 @@ variable.length;
 window.variable;
 ```
 
-
 #### What is Object
 
 Simply it's a collection of names properties, a list of key-value pairs, properties could be functions (methods)
@@ -102,7 +101,6 @@ object.name; // Adham
 
 object.sayHello('Hello'); //Hello Adham
 ```
-
 
 ### JavaScript Objects types
 
@@ -503,14 +501,14 @@ For function and method names you can use lower camel case, for example
 
 
 ``` javascript
- getFirstName()
+getFirstName()
 ```
 
 For variable names use lowercase words delimited by commas
 
 ``` javascript
- first_name
- last_name
+first_name
+last_name
 ```
 
 So this helps you ditinguish between functions and other identifiers.
@@ -518,8 +516,8 @@ So this helps you ditinguish between functions and other identifiers.
 If you have such a constant variable (JS have no constants), you can adopt a convention by using all-caps for naming variables.
 
 ``` javascript
- var PI = 3.14;
- last_name
+var PI = 3.14;
+last_name
 ```
 
 In some cases some developers use `_` underscore prefix such as a convention for indicating a private function of method. It doesn't provide any privacy it's just a convention. [In Javascript, what does this underscore mean?](http://stackoverflow.com/questions/8288756/in-javascript-what-does-this-underscore-mean?lq=1).
@@ -565,21 +563,21 @@ Objects are mutable at any time, so you can add, change, remove properties any t
 On the other hand immutable means that things can't be changed or modified.
 
 ``` javascript
-  var object = { };
+var object = { };
 
-  // Add property
-  object.name = 'Ahmad';
-  object.name; // Ahmad
+// Add property
+object.name = 'Ahmad';
+object.name; // Ahmad
 
-  // Add method
-  object.getName = function() {
-    return this.name;
-  };
-  object.getName(); // Ahmad
+// Add method
+object.getName = function() {
+  return this.name;
+};
+object.getName(); // Ahmad
 
-  // Delete property
-  delete object.name;
-  object.name; // undefined
+// Delete property
+delete object.name;
+object.name; // undefined
 ```
 
 #### Javascript object constructor vs object literal.
@@ -591,10 +589,10 @@ Objects can be used by your own constructor functions or some built-in JS object
 So now we can see two ways to create a new object
 
 ``` javascript
-  // using the Object constructor
-  var obj = new Object();
+// using the Object constructor
+var obj = new Object();
 
-  // using the object literal
+// using the object literal
   var obj = { };
 ```
 
@@ -612,19 +610,17 @@ On the other hand there is a trick when using the `new Object()` to consider it 
 The `new Object()` can acccept a parameter and depending on this parameter it will delegate the object creaion to another built-in constructor and return a different object.
 
 ``` javascript
-  var obj = new Object();
+var obj = new Object();
 
-  obj.constructor === Object; // => true
+obj.constructor === Object; // => true
 
-  var obj = new Object(1);
+var obj = new Object(1);
 
-  obj.constructor === Number; // => true
+obj.constructor === Number; // => true
 
+var obj = new Object('foo');
 
-  var obj = new Object('foo');
-
-  obj.constructor === String; // => true
-
+obj.constructor === String; // => true
 ```
 
 So as you can see the constructor is changed based on the typeof passed argument. The author recomended to not using it and instead use the literal method.
@@ -707,17 +703,17 @@ For the methods inside the constructor, it's recommended to the `hi` method to t
 So next time reusable members such as methods should be added to the prototype.
 
 ``` javascript
-  var Person = function(name) {
-    this.name = name;
-  };
+var Person = function(name) {
+  this.name = name;
+};
 
-  Person.prototype.hi = function() {
-    return 'Hi ' + this.name;
-  }
+Person.prototype.hi = function() {
+  return 'Hi ' + this.name;
+}
 
-  var ahmad = new Person('Ahmad');
+var ahmad = new Person('Ahmad');
 
-  ahmad.hi(); // => "Hi Ahmad"
+ahmad.hi(); // => "Hi Ahmad"
 ```
 
 #### Calling the constructor without using `new`
@@ -725,18 +721,18 @@ So next time reusable members such as methods should be added to the prototype.
 What if you called the constructor function without `new`, the `this` inside the constructor will now point to the `window` object. for example if you defined `this.foo`, this actually create a new property in the global object calld `foo` and accessible through `window.foo` or just `foo`
 
 ``` javascript
-  function Person() {
-    this.foo = 'foo';
-  }
+function Person() {
+  this.foo = 'foo';
+}
 
-  console.log(window.foo); // undefined
+console.log(window.foo); // undefined
 
-  var per = Person();
+var per = Person();
 
-  console.log(foo); // foo
-  console.log(window.foo); // foo
+console.log(foo); // foo
+console.log(window.foo); // foo
 
-  console.log(per.foo); // TypeError: per is undefined
+console.log(per.foo); // TypeError: per is undefined
 ```
 
 Using `use strict';` will help you avoid forgetting `new` and the browser will complain about it, so always use `use strict';`.
@@ -747,16 +743,16 @@ What about if we can call the contructor without using `new` by using Self-Invok
 ](https://github.com/Automattic/socket.io/blob/master/lib/index.js#L38).
 
 ``` javascript
-  function Server() {
-    if (!(this instanceof Server)) return new Server();
-    this.url = '/socket.io';
-  }
+function Server() {
+  if (!(this instanceof Server)) return new Server();
+  this.url = '/socket.io';
+}
 
-  //
-  var ws = Server();
-  ws.url; // => "/socket.io"
+//
+var ws = Server();
+ws.url; // => "/socket.io"
 
-  var ws = new Server();
+var ws = new Server();
   ws.url; // => "/socket.io"
 ```
 
@@ -772,7 +768,7 @@ So now there will no be any issues if the end developer called the `Server` cons
 Somethimes `this` can refer to another scope and refer to something else, for example suppose you want to call a constructor method inside a DOM event, in this case `this` will refer to the DOM element not the created object.
 
 ``` html
-  <button id="button">Alert Name</button>
+<button id="button">Alert Name</button>
 ```
 
 ``` javascript
@@ -786,9 +782,9 @@ var Person = function(name) {
 ```
 
 ``` javascript
-  var ahmad = new Person('Ahmad');
-  var element = document.getElementById('button');
-  element.addEventListener('click', ahmad.sayHi); // => Ahmad
+var ahmad = new Person('Ahmad');
+var element = document.getElementById('button');
+element.addEventListener('click', ahmad.sayHi); // => Ahmad
 ```
 
 [Demo](http://jsbin.com/degaja/1/)
@@ -813,22 +809,22 @@ var Person = function(name) {
 Arrays are objects too, they can be created by using `Array()` constructor but as we saw in Objects it's prefered to use array literals to create new array.
 
 ``` javascript
-  // using Array constructor
-  var arr = new Array(1,2,3);
+// using Array constructor
+var arr = new Array(1,2,3);
 
-  // using array literal
-  var arr = [1,2,3];
+// using array literal
+var arr = [1,2,3];
 
-  arr.constructor === Array; // => true
+arr.constructor === Array; // => true
 ```
 
 Another reason to avoind Array constructor is that when you pass one parameter to it, this one parameter will not be an element, but the length of the array.
 
 ``` javascript
-  var arr = new Array(10);
+var arr = new Array(10);
 
-  arr.length; // => 10
-  arr[1];     // => undefined
+arr.length; // => 10
+arr[1];     // => undefined
 ```
 
 #### Check for Array-ness
@@ -838,15 +834,15 @@ What about if you want to check if the object is an array or not.
 Using the `typeof` operator is not accurate as it will return `"object"`.
 
 ``` javascript
-  var arr = [1,2,3,4];
-  typeof arr; // => object
+var arr = [1,2,3,4];
+typeof arr; // => object
 ```
 
 To check if the variable is exactly array or not we can use `Array.isArray(obj)` method that will return `true` or `false`.
 
 ``` javascript
-  var arr = [1,2,3,4];
-  Array.isArray(arr); // => true
+var arr = [1,2,3,4];
+Array.isArray(arr); // => true
 ```
 
 [MDN Array.isArray()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)
@@ -856,16 +852,16 @@ To check if the variable is exactly array or not we can use `Array.isArray(obj)`
 JSON (JavaScript Object Notation) is a data transfere format. It's actually a combination of the object and array literal notations.
 
 ``` javascript
-  var json = '{"name": "Ahmad", "age": 89, "friends": [1,2,3]}';
+var json = '{"name": "Ahmad", "age": 89, "friends": [1,2,3]}';
 
-  // To convert json to object, use JSON.parse() method
-  var data = JSON.parse(json);
-  data.name; // => Ahmad
+// To convert json to object, use JSON.parse() method
+var data = JSON.parse(json);
+data.name; // => Ahmad
 
-  // To convert object to json format, use JSON.stringify() method
-  var object = {name: "Ahmad", age: 89, friends: [1,2,3]};
-  var json = JSON.stringify(object);
-  json; // => "{"name":"Ahmad","age":89,"friends":[1,2,3]}"
+// To convert object to json format, use JSON.stringify() method
+var object = {name: "Ahmad", age: 89, friends: [1,2,3]};
+var json = JSON.stringify(object);
+json; // => "{"name":"Ahmad","age":89,"friends":[1,2,3]}"
 ```
 
 #### Regular Expressions
@@ -876,10 +872,10 @@ Regular expressions are also Objects and there are two options to create them
 - Using the regular expression literal.
 
 ``` javascript
-  // Literal
-  var regx = /\\/gm;
-  // Constructor
-  var regx = new RegExp('\\\\', 'gm');
+// Literal
+var regx = /\\/gm;
+// Constructor
+var regx = new RegExp('\\\\', 'gm');
 ```
 
 Some reasons for using the literal syntax
@@ -900,13 +896,13 @@ The pattern modifier can represent different meaning like
 So the literal syntax can be represented as
 
 ``` javascript
-  var regx = /pattern/gmi;
+var regx = /pattern/gmi;
 ```
 
 The literal syntax can be passed as a parameter to another method, for example
 
 ``` javascript
-  var remove_space = "spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
+var remove_space = "spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
 ```
 
 #### Primitive Wrappers
@@ -914,24 +910,24 @@ The literal syntax can be passed as a parameter to another method, for example
 The `number`, `string` and `boolean` primitive types have something called primitive wrapper objects
 
 ``` javascript
-  // Primitive number
-  var primitive_number = 90;
-  typeof primitive_number; // => "number"
+// Primitive number
+var primitive_number = 90;
+typeof primitive_number; // => "number"
 
-  // Number Object
-  var number_object = new Number(90);
-  typeof number_object; // => "object"
+// Number Object
+var number_object = new Number(90);
+typeof number_object; // => "object"
 ```
 
 If you wonder how you can call a method such as `toUpperCase()` on a primitive string, Javascript will temporairly convert the primitive into an object behind the scenes and behaves as it was an object.
 
 ``` javascript
-  // In the prevous regex example we used the replace method on the string
-  var remove_space = "spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
+// In the prevous regex example we used the replace method on the string
+var remove_space = "spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
 
-  // It's the same way as
-  var remove_space = new String("spaces will be removed");
-  remove_space.replace(/\s/gm, ''); // => "spaceswillberemoved"
+// It's the same way as
+var remove_space = new String("spaces will be removed");
+remove_space.replace(/\s/gm, ''); // => "spaceswillberemoved"
 ```
 
 #### Error Objects
@@ -945,4 +941,68 @@ The created error object created by theses constructors have some properties lik
 You can use the `throw` statement with any object not just with the built-in constructors so you can customize your own error.
 
 [MDN Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+
+
+## CHAPTER 3 / Functions
+
+Main features of functins in JS
+
+- Functions are first class objects
+- Functions provide scope.
+
+##### Functions are first class objects:
+
+- Can be created dynamically at runtime, during the execution of the program.
+- Can be assigned to a variable.
+- Can have their references copied to another variable.
+- can be augmented.
+- For special cases can be deleted.
+- can be passed as arguments to another functions and be returned by another functions.
+- Can have their properties and methods.
+
+When you are you think of a function, think of an object with only special features that this object is invokable, meaning it can be executed.
+
+##### Functions scope:
+
+In JS there is no block scope, there is only function scope. Any variable defined using the `var` keyqord inside the function id considered a local variable to that function and inicisible outside that function.
+
+There are two ways for creating function, function expression and function declaration.
+
+##### Function expression
+
+``` javascript
+var square = function square(x) {
+  return x * x;
+};
+
+square.name; // => "square"
+```
+
+The above example which is called a named function expression, if you skip the second `square` name it's names becomes unnamed fuction expression or simply as function expression or anonymous function as:
+
+``` javascript
+var square = function (x) {
+  return x * x;
+};
+square.name; // => ""
+```
+
+When we omit the second `square` name, this didn't affect the function execution. The only difference is the `name` property of the function will be empty.
+
+The [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) property will return the name of a function or an ampty string for anonymous function. And it could be used in debugging code in Firegug or other debuggers and could be used to call the same function recusivly from within itself.
+
+##### Function declarations
+
+Function declarations are as simple as
+
+``` javascript
+function square(x) {
+  return x * x;
+};
+```
+
+When it comes to choose between function expression and function declarations. In cases which you want to pass function as a parameter to another function or defining a method in objects, then function expression will do it.
+
+Function declarations on the other hand can only defined in the programe code, so they can't be assigned to variables or properties or passed to another function as parameter. Also conside the availability of the `name` property as described above.
+
 
