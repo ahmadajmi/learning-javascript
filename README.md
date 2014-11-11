@@ -1006,3 +1006,81 @@ When it comes to choose between function expression and function declarations. I
 Function declarations on the other hand can only defined in the programe code, so they can't be assigned to variables or properties or passed to another function as parameter. Also conside the availability of the `name` property as described above.
 
 
+#### Callback Pattern
+
+We already know that functions are objects, so that they can be passed as a parameters to another functions.
+
+``` javascript
+function getName(name, callback) {
+  console.log('I will print the name ..')
+  callback(name);
+}
+
+function printName(name) {
+  console.log(name + ' is printed');
+}
+
+getName("Ahmad", printName);
+```
+
+In the above example we passed the `printName` function as a parameter to the `getName` function, so in this case the `printName` is called a callback function. We passed it as a parameter without the parentheses and then when the callback is executed, we will add the parentheses.
+
+The callback function can be passed directly as
+
+``` javascript
+function getName(name, callback) {
+  console.log('I will print the name ..')
+  callback(name);
+}
+
+getName("Ahmad", function printName(name) {
+  console.log(name + ' is printed');
+});
+```
+
+If we called the callback function without passing it, we will get an error. We can solve this be checking if the callback is passed or not as. We can also make sure that it's really a function or not.
+
+``` javascript
+function getName(name, callback) {
+  console.log('I will print the name ..');
+  if (callback && typeof(callback) == 'function') {
+    callback(name);
+  }
+}
+```
+
+#### Callbacks and Scope
+
+Suppose the callback function is an object method and not a normal function, and if the method uses `this` to refer to another object property, this can cause a problem. for example supose that we want to log the objct name in the object method and use this method as a callback. in this case the `this.name` will refer to the global object
+
+``` javascript
+var myApp = {
+  name: 'Ahmad',
+  method: function(arg) {
+    console.log(this.name);
+  }
+};
+
+function getName(callback) {
+  callback();
+}
+
+getName(myApp.method); // => ""
+```
+
+The solution to this problem is to pass another parameter to the `getName` function as the object that this callback belongs to and then use we will modify the execution of the callback to bind the object we passed as.
+
+``` javascript
+var myApp = {
+  name: 'Ahmad',
+  method: function(arg) {
+    console.log(this.name);
+  }
+};
+
+function getName(callback, callback_obj) {
+  callback.call(callback_obj);
+}
+
+getName(myApp.method, myApp); // => "Ahmad
+```
