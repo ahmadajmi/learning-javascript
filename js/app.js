@@ -1,49 +1,34 @@
 'use strict';
 
 /**
- * Websoket Basic Example
+ * HTML5 FileReader API Basic Example
  */
 
- var wsURL = 'wss://echo.websocket.org';
- var ws = new WebSocket(wsURL);
+var input = document.getElementById('input');
+var preview = document.getElementById('preview');
 
-/**
- * readyState represents the state of the connection, with following values:
- * 0 => Connecting
- * 1 => Open
- * 2 => Closing
- * 3 => Closed
- *
- * Websocket Handshake
- * - The client send an upgrade request.
- * - The server sends an upgrade response.
- * - Then the readyState changed to 1 indicating the connection is open.
- * - Then we can listen to messages (message event).
- */
+input.addEventListener('change', prefiewFiles, false);
 
-/**
- * Event Handlers
- */
+function prefiewFiles() {
+  var fileList = this.files,
+  image = document.createElement('img');
 
- ws.onopen = function(e) {
-  var msg = {
-    name: 'name',
-    age: 90
-  };
+  for (var i = 0, length = fileList.length; i < length; i++) {
+    var file = fileList[i];
+    var imageType = /image.*/;
 
-  document.getElementById('connected').innerHTML = 'Connected';
-  ws.send(JSON.stringify(msg));
-};
+    if (!file.type.match(imageType)) {
+      continue;
+    }
 
-ws.onmessage = function(e) {
-  console.log('Data from the server => ' + e.data);
-  document.getElementById('message').innerHTML = 'message';
-};
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
 
-ws.onclose = function(e) {
-  console.log('close');
-};
+    reader.onload = function(e) {
+      image = document.createElement('img')
+      image.src = e.target.result;
+      preview.appendChild(image);
+    }
+  }
 
-ws.onerror = function(e) {
-  document.getElementById('error').innerHTML = 'error';
-};
+}
