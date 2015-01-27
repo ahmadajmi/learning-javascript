@@ -168,6 +168,77 @@ function printName() {
 setInterval(printName, 900);
 ```
 
-In this example we passes the `printName` function as a callback function, notice that the function is passed as a variable without the parentheses, this is becuse you don't want to execute it directly but simply point to it for later use by `setInterval`.
+In this example we passes the `printName` function as a callback function, notice that the function is passed as a variable without the parentheses, this is because you don't want to execute it directly but simply point to it for later use by `setInterval`.
 
-[setInterval callback only runs once](http://stackoverflow.com/questions/10182714/setinterval-callback-only-runs-once)
+[setInterval callback only runs oncee](http://stackoverflow.com/questions/10182714/setinterval-callback-only-runs-once)
+
+
+#### Returning Functions
+
+Function can return another function as the returned value, consider this example
+
+```
+function printName() {
+  console.log('Name is Ahmad form the outer function');
+  return function() {
+    console.log('Name is Ahmad form the inner function')
+  }
+}
+
+var ahmad = printName();
+// "Name is Ahmad form the outer function"
+
+ahmad();
+// "Name is Ahmad form the inner function"
+```
+
+What we have seen above is that `printName()` will return another anonymous function that we can call later by `ahmad()`
+
+Lets write the above example in another favor and add a name to the inner function and then return it. this will give us the same result as the above code.
+
+```
+function printName() {
+  console.log('Name is Ahmad form the outer function');
+  function inner() {
+    console.log('Name is Ahmad form the inner function')
+  }
+  return inner;
+}
+```
+
+But what happened if we returned the `inner` function and execute it at the same time. this will evaluate it as soon as we call the `printName` function.
+```
+function printName() {
+  console.log('Name is Ahmad form the outer function');
+  function inner() {
+    console.log('Name is Ahmad form the inner function==')
+  }
+  return inner();
+}
+
+var ahmad = printName();
+
+// "Name is Ahmad form the outer function"
+// "Name is Ahmad form the inner function"
+
+ahmad();
+// ahmad is not a function
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
