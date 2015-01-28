@@ -12,6 +12,5 @@ gulp.task('hint', function(){
 
 // Watch Files For Changes
 gulp.task('default', function(){
-  console.log('this');
   gulp.watch('js/**/*.js', ['hint']);
 });

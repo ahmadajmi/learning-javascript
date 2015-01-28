@@ -88,7 +88,7 @@ function getUserInfo() {
 It's also a good practise to declare initial value to variables as seen in the above `address` object, this can increase code readability.
 
 #### Hoisting
-Javascript always consider a variable ad declared even it's uded before the var declaration.
+Javascript always consider a variable as declared even it's used before the var declaration.
 
 ``` javascript
 function hoist() {
@@ -105,7 +105,7 @@ So it's always best practice to declare variables first in the function scope.
 
 #### for Loops
 
-One way to make for Loops more speed and increaes the performance is to cache the length of the array (collection) you are iterating over, so instead of doing something like this
+One way to make for Loops more speed and increase the performance is to cache the length of the array (collection) you are iterating over, so instead of doing something like this
 
 ``` javascript
 var arr = [1,2,3,4,5,6];
@@ -133,7 +133,7 @@ This way we iterate the array length only once and then use it during the loop, 
 for-in Loops used to loop over none array objects and it's called enumeration.
 for-in Loops can be used to loop over arrays but it's not recommended.
 
-When iterating over Object's it's always recommened to use the `hasOwnProperty()` method so we can filter the properties that can come from the prototype chain. Consider the folowing example.
+When iterating over Object's it's always recommend to use the `hasOwnProperty()` method so we can filter the properties that can come from the prototype chain. Consider the following example.
 
 ``` javascript
 var object = {
@@ -157,7 +157,7 @@ for (i in object) {
 
 ```
 
-So as you can see the `newMethod()` method becomes a property of our created object becuse it inherites it from the prototype chain, so whenever we loop over `object` the `newMethod()` method will be returned as a property. to avoid this you can use the `hasOwnProperty()` method to filter the result and return only the `object` main properties.
+So as you can see the `newMethod()` method becomes a property of our created object because it inherits it from the prototype chain, so whenever we loop over `object` the `newMethod()` method will be returned as a property. to avoid this you can use the `hasOwnProperty()` method to filter the result and return only the `object` main properties.
 
 ``` javascript
 for (i in object) {
@@ -177,12 +177,12 @@ Confused about this shit especially when it comes to a question like [this](http
 
 #### switch Pattern
 
-The author suggested some rules to oncrease the readibilty of the switch Pattern.
+The author suggested some rules to increase the readability of the switch Pattern.
 
 - Aligning each case with switch (an exception to the curly braces indentation rule).
 - Indenting the code within each case.
 - Ending each case with a clear break;.
-- Avoiding [fall-throughs](http://stackoverflow.com/questions/188461/switch-statement-fallthrough-should-it-be-allowed) (when  you omit the break intentionally). If you’re abso- lutely convinced that a fall-through is the best approach, make sure you document such cases, because they might look like errors to the readers of your code.
+- Avoiding [fall-throughs](http://stackoverflow.com/questions/188461/switch-statement-fallthrough-should-it-be-allowed) (when  you omit the break intentionally). If you're absolutely convinced that a fall-through is the best approach, make sure you document such cases, because they might look like errors to the readers of your code.
 - Ending the switch with a default: to make sure there’s always a sane result even if none of the cases matched.
 
 ``` javascript
@@ -227,7 +227,7 @@ parseInt("abc");     // Returns NaN.
 parseInt("12abc");   // Returns 12.
 ```
 
-The function accepts a second parameter called radix and it shoud be specefied and if not strings with a prefix of '0x' are considered hexadecimal.
+The function accepts a second parameter called radix and it should be specified and if not strings with a prefix of '0x' are considered hexadecimal.
 
 Read more on [parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
 
@@ -236,11 +236,11 @@ Read more on [parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/
 
 #### Indentation
 
-Always consider making a desision on code indentation. This will help you and your team. Personally I use [EditorConfig](http://editorconfig.org/).
+Always consider making a decision on code indentation. This will help you and your team. Personally I use [EditorConfig](http://editorconfig.org/).
 
 #### Curly Braces
 
-Always use them even with a single statement in a foor loop
+Always use them even with a single statement in a for loop
 
 ``` javascript
 // bad practice
@@ -256,7 +256,7 @@ for (var i = 0; i < 10; i += 1) {
 
 #### Opening Brace Location
 
-Always use curly beaces and always put the opening one on the same line, for example
+Always use curly braces and always put the opening one on the same line, for example
 
 
 ``` javascript
@@ -272,7 +272,7 @@ function curly(){
   };
 }
 
-The preceding code is equlivant to this one
+The preceding code is equivalent to this one
 function curly(){
   return undefined;
   // this code is not reachable
@@ -307,7 +307,7 @@ Choosing a consistent naming for variables and functions
 
 - Capitalizing Constructors
 
-To make it easy to see the diference between a normal and a constructor function always capitalize the constructor function name.
+To make it easy to see the difference between a normal and a constructor function always capitalize the constructor function name.
 
 ``` javascript
 var person = new Person();
@@ -328,7 +328,7 @@ first_name
 last_name
 ```
 
-So this helps you ditinguish between functions and other identifiers.
+So this helps you distinguish between functions and other identifiers.
 
 If you have such a constant variable (JS have no constants), you can adopt a convention by using all-caps for naming variables.
 
@@ -357,7 +357,7 @@ Try to peer review your code with your coworker, so you will get a feedback abou
 
 #### Minify code in production
 
-Minification is the process of eliminating white space, comments to decrease the size of the JavaScript that will be transfered from the server to the browser, this will help increase the peroformance.
+Minification is the process of eliminating white space, comments to decrease the size of the JavaScript that will be transfered from the server to the browser, this will help increase the performance.
 
 [Minify files with UglifyJS](https://github.com/gruntjs/grunt-contrib-uglify)
 

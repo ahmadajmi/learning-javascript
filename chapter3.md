@@ -47,7 +47,7 @@ var obj = new Object();
 ##### object literal pros
 
 - Shorter to type
-- Emphazies that objects are simple mutable hashes and not somthing that needs to be backed from a class.
+- Emphasizes that objects are simple mutable hashes and not something that needs to be backed from a class.
 
 ##### More info
 
@@ -55,7 +55,7 @@ var obj = new Object();
 
 On the other hand there is a trick when using the `new Object()` to consider it when seeing it used in other code or when you think about using it.
 
-The `new Object()` can acccept a parameter and depending on this parameter it will delegate the object creaion to another built-in constructor and return a different object.
+The `new Object()` can accept a parameter and depending on this parameter it will delegate the object creation to another built-in constructor and return a different object.
 
 ``` javascript
 var obj = new Object();
@@ -71,11 +71,11 @@ var obj = new Object('foo');
 obj.constructor === String; // => true
 ```
 
-So as you can see the constructor is changed based on the typeof passed argument. The author recomended to not using it and instead use the literal method.
+So as you can see the constructor is changed based on the typeof passed argument. The author recommended to not using it and instead use the literal method.
 
 #### Custom Constructor Functions
 
-In addiotion to creating object using the literal and the built-in constructor funcitons, you can create objects using your own constructor functions.
+In addition to creating object using the literal and the built-in constructor functions, you can create objects using your own constructor functions.
 
 ``` javascript
 var Person = function(name) {
@@ -146,7 +146,7 @@ ahmad.hi(); // => ahmad.hi is not a function :) (:
 ahmad.foo; // => 'foo'
 ```
 
-For the methods inside the constructor, it's recommended to the `hi` method to the prototype of the `Person`. Th eproblem is every time you call the `new Person()` a new function is created in the memory and this is inefficient because `say()` method doesn't change from one instance to the next.
+For the methods inside the constructor, it's recommended to the `hi` method to the prototype of the `Person`. The problem is every time you call the `new Person()` a new function is created in the memory and this is inefficient because `say()` method doesn't change from one instance to the next.
 
 So next time reusable members such as methods should be added to the prototype.
 
@@ -166,7 +166,7 @@ ahmad.hi(); // => "Hi Ahmad"
 
 #### Calling the constructor without using `new`
 
-What if you called the constructor function without `new`, the `this` inside the constructor will now point to the `window` object. for example if you defined `this.foo`, this actually create a new property in the global object calld `foo` and accessible through `window.foo` or just `foo`
+What if you called the constructor function without `new`, the `this` inside the constructor will now point to the `window` object. for example if you defined `this.foo`, this actually create a new property in the global object called `foo` and accessible through `window.foo` or just `foo`
 
 ``` javascript
 function Person() {
@@ -254,7 +254,7 @@ var Person = function(name) {
 
 #### Array Literal
 
-Arrays are objects too, they can be created by using `Array()` constructor but as we saw in Objects it's prefered to use array literals to create new array.
+Arrays are objects too, they can be created by using `Array()` constructor but as we saw in Objects it's preferred to use array literals to create new array.
 
 ``` javascript
 // using Array constructor
@@ -266,7 +266,7 @@ var arr = [1,2,3];
 arr.constructor === Array; // => true
 ```
 
-Another reason to avoind Array constructor is that when you pass one parameter to it, this one parameter will not be an element, but the length of the array.
+Another reason to avoid Array constructor is that when you pass one parameter to it, this one parameter will not be an element, but the length of the array.
 
 ``` javascript
 var arr = new Array(10);
@@ -297,7 +297,7 @@ Array.isArray(arr); // => true
 
 #### JSON
 
-JSON (JavaScript Object Notation) is a data transfere format. It's actually a combination of the object and array literal notations.
+JSON (JavaScript Object Notation) is a data transfer format. It's actually a combination of the object and array literal notations.
 
 ``` javascript
 var json = '{"name": "Ahmad", "age": 89, "friends": [1,2,3]}';
@@ -329,7 +329,7 @@ var regx = new RegExp('\\\\', 'gm');
 Some reasons for using the literal syntax
 
 - Shorter and doesn't force you to think of class like constructor.
-- The RegEx constructor needs more typing, like the neeed to escape quotes and double-escape backslashes.
+- The RegEx constructor needs more typing, like the need to escape quotes and double-escape backslashes.
 
 ##### Regex literal syntax
 
@@ -338,7 +338,7 @@ The pattern is wrapped in forward slashes.
 The pattern modifier can represent different meaning like
 
 - `g` : Global matching
-- `m` : multiline
+- `m` : multi-line
 - `i` : Case-insensetive matching
 
 So the literal syntax can be represented as
@@ -367,7 +367,7 @@ var number_object = new Number(90);
 typeof number_object; // => "object"
 ```
 
-If you wonder how you can call a method such as `toUpperCase()` on a primitive string, Javascript will temporairly convert the primitive into an object behind the scenes and behaves as it was an object.
+If you wonder how you can call a method such as `toUpperCase()` on a primitive string, Javascript will temporarily convert the primitive into an object behind the scenes and behaves as it was an object.
 
 ``` javascript
 // In the prevous regex example we used the replace method on the string

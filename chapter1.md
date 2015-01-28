@@ -45,7 +45,7 @@ An anti-pattern is not the same as a bug or a coding error; it’s just a common
  - A mean of abstraction without dive in details.
  - Improve communication between teamwork.
 
-#### None Objects in javascript (premitive types)
+#### None Objects in Javascript (primitive types)
 
 - Number
 - String
@@ -104,7 +104,7 @@ object.sayHello('Hello'); //Hello Adham
 
 #### Native
 
-Described in the ECMAScript standard. Can be categorised as built in objects like Date . Array . or user-defined ( var o = {}; )
+Described in the ECMAScript standard. Can be categorized as built in objects like Date . Array . or user-defined ( var o = {}; )
 
 #### Host
 
@@ -176,4 +176,4 @@ console.dir(obj);
 // anotherObj Object { foo="foo"}
 ```
 
-If you have installed nodejs you can write code in your terminal simply by typing `node` command and then you will enter the node environment.
+If you have installed Node.js you can write code in your terminal simply by typing `node` command and then you will enter the node environment.

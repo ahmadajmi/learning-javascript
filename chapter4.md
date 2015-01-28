@@ -1,6 +1,6 @@
 ## CHAPTER 4 / Functions
 
-Main features of functins in JS
+Main features of Functions in JS
 
 - Functions are first class objects
 - Functions provide scope.
@@ -19,7 +19,7 @@ When you are you think of a function, think of an object with only special featu
 
 ##### Functions scope:
 
-In JS there is no block scope, there is only function scope. Any variable defined using the `var` keyqord inside the function id considered a local variable to that function and inicisible outside that function.
+In JS there is no block scope, there is only function scope. Any variable defined using the `var` keyword inside the function is considered a local variable to that function and invisible outside that function.
 
 There are two ways for creating function, function expression and function declaration.
 
@@ -33,7 +33,7 @@ var square = function square(x) {
 square.name; // => "square"
 ```
 
-The above example which is called a named function expression, if you skip the second `square` name it's names becomes unnamed fuction expression or simply as function expression or anonymous function as:
+The above example which is called a named function expression, if you skip the second `square` name it's names becomes unnamed function expression or simply as function expression or anonymous function as:
 
 ``` javascript
 var square = function (x) {
@@ -44,7 +44,7 @@ square.name; // => ""
 
 When we omit the second `square` name, this didn't affect the function execution. The only difference is the `name` property of the function will be empty.
 
-The [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) property will return the name of a function or an ampty string for anonymous function. And it could be used in debugging code in Firegug or other debuggers and could be used to call the same function recusivly from within itself.
+The [`name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) property will return the name of a function or an empty string for anonymous function. And it could be used in debugging code in Firebug or other debuggers and could be used to call the same function recursively from within itself.
 
 ##### Function declarations
 
@@ -58,7 +58,7 @@ function square(x) {
 
 When it comes to choose between function expression and function declarations. In cases which you want to pass function as a parameter to another function or defining a method in objects, then function expression will do it.
 
-Function declarations on the other hand can only defined in the programe code, so they can't be assigned to variables or properties or passed to another function as parameter. Also conside the availability of the `name` property as described above.
+Function declarations on the other hand can only defined in the program code, so they can't be assigned to variables or properties or passed to another function as parameter. Also consider the availability of the `name` property as described above.
 
 
 #### Callback Pattern
@@ -106,7 +106,7 @@ function getName(name, callback) {
 
 #### Callbacks and Scope
 
-Suppose the callback function is an object method and not a normal function, and if the method uses `this` to refer to another object property, this can cause a problem. for example supose that we want to log the objct name in the object method and use this method as a callback. in this case the `this.name` will refer to the global object
+Suppose the callback function is an object method and not a normal function, and if the method uses `this` to refer to another object property, this can cause a problem. for example suppose that we want to log the object name in the object method and use this method as a callback. in this case the `this.name` will refer to the global object
 
 ``` javascript
 var myApp = {
@@ -177,7 +177,7 @@ In this example we passes the `printName` function as a callback function, notic
 
 Function can return another function as the returned value, consider this example
 
-```
+``` javascript
 function printName() {
   console.log('Name is Ahmad form the outer function');
   return function() {
@@ -196,7 +196,7 @@ What we have seen above is that `printName()` will return another anonymous func
 
 Lets write the above example in another favor and add a name to the inner function and then return it. this will give us the same result as the above code.
 
-```
+``` javascript
 function printName() {
   console.log('Name is Ahmad form the outer function');
   function inner() {
@@ -207,7 +207,8 @@ function printName() {
 ```
 
 But what happened if we returned the `inner` function and execute it at the same time. this will evaluate it as soon as we call the `printName` function.
-```
+
+``` javascript
 function printName() {
   console.log('Name is Ahmad form the outer function');
   function inner() {
@@ -225,20 +226,3 @@ ahmad();
 // ahmad is not a function
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
