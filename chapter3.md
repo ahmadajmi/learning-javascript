@@ -389,3 +389,5 @@ The created error object created by theses constructors have some properties lik
 You can use the `throw` statement with any object not just with the built-in constructors so you can customize your own error.
 
 [MDN Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)
+
+[Chapter 4](chapter4.md)

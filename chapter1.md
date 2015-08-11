@@ -117,7 +117,7 @@ Simply NO classes in JS, but all you want is objects.
 [Inheritance VS compositions in JavaScript]( http://stackoverflow.com/questions/8696695/composition-inheritance-and-aggregation-in-javascript)
 
 ### Prototype
-A prototype is an object and every created function automatically gets a prototype property that points to a new blank object and it's constructor property will point to the function that just created not the built-in Object().
+A prototype is an object. Every created function automatically gets a prototype property that points to a new blank object and it's constructor property will point to the function that just created not the built-in Object().
 
 ``` javascript
 function func() {}
@@ -177,3 +177,5 @@ console.dir(obj);
 ```
 
 If you have installed Node.js you can write code in your terminal simply by typing `node` command and then you will enter the node environment.
+
+[Chapter 2](chapter2.md)

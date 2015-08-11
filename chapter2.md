@@ -365,3 +365,5 @@ Minification is the process of eliminating white space, comments to decrease the
 #### Use Lint tool
 
 As mentioned before always use a lint to detect errors and potential problems in your JavaScript code. [JSlint](http://www.jslint.com/) or [JShint](http://www.jshint.com/)
+
+[Chapter 3](chapter3.md)
