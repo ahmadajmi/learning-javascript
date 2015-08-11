@@ -10,7 +10,7 @@
 
 ### Minimizing Globals
 
-Variables declared inside a function scope are considered local to that function and not accessible outside it. So global variables are those who declared outside the function or declared without using the `var` keyword inside of the function.
+Variables declared inside a function scope are considered local to that function and not accessible outside it. So global variables are those who are declared outside the function or declared without using the `var` keyword inside of the function.
 
 For every global variable created it will be attached to the global environment object, in the browser this global object is `window` or `this`.
 
@@ -43,30 +43,23 @@ So the point here is always use the `var` keyword in declaring variables and sta
 - Shared on all the code base
 - Are all on the global object and can make conflicts with other name from other third party plugin.
 
-### Using `delete` to delete variables
+### Using `delete` operator
 
-- variables declared using the `var` keyword can't be deleted.
-- Variables created in the global can be deleted, this is because they are properties of the global object.
+- variables declared using the `var` keyword can't be deleted, because it's non-configurable meaning they can't be removed from the global object using the delete operator.
+- Variables created without the `var` keyword can be deleted, this is because they are properties of the global object.
 
 ``` javascript
-var global = 'global';
+x = 'this is x'; // creates the property x on the global object
+var y = 'this is y'; // creates the property x on the global object as as non-configurable
 
-global_novar = 'global_novar';
+// x is a property of the global object and can be deleted
+delete x; // true
 
-(function(){
-  global_inside_func = 'global_inside_func';
-})();
-
-// when trying to delete this in `strict mode` it will throw error.
-delete global; // false
-
-delete global_novar; // true
-
-delete global_inside_func; // true
-
+// y is a property of the global object and can't be deleted
+delete y; // false
 ```
 
-#### The global Object
+More info about [delete operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/delete)
 
 #### Single var pattern
 
@@ -141,7 +134,9 @@ var object = {
   email: 'mail@gmail.com'
 };
 
-Object.prototype.newMethod = function(){ return 'prototype chain'; };
+Object.prototype.newMethod = function() {
+  return 'prototype chain';
+};
 
 object.newMethod(); // prototype chain
 
@@ -149,7 +144,7 @@ for (i in object) {
   console.log(object[i]);
 }
 
-=>
+// =>
 
 // Name
 // mail@gmail.com
@@ -181,7 +176,7 @@ The author suggested some rules to increase the readability of the switch Patter
 
 - Aligning each case with switch (an exception to the curly braces indentation rule).
 - Indenting the code within each case.
-- Ending each case with a clear break;.
+- Ending each case with a clear `break;`.
 - Avoiding [fall-throughs](http://stackoverflow.com/questions/188461/switch-statement-fallthrough-should-it-be-allowed) (when  you omit the break intentionally). If you're absolutely convinced that a fall-through is the best approach, make sure you document such cases, because they might look like errors to the readers of your code.
 - Ending the switch with a default: to make sure there’s always a sane result even if none of the cases matched.
 
@@ -251,7 +246,8 @@ for (var i = 0; i < 10; i += 1)
 ``` javascript
 // better
 for (var i = 0; i < 10; i += 1) {
-  alert(i); }
+  alert(i);
+}
 ```
 
 #### Opening Brace Location
@@ -265,15 +261,16 @@ Always use curly braces and always put the opening one on the same line, for exa
 // This function will return undefined :).
 // this is becuse the semicolon insertion mechanism in JS that will insert semicolon at the end of the return
 
-function curly(){
+function curly() {
   return
   {
     name: 'name'
   };
 }
 
-The preceding code is equivalent to this one
-function curly(){
+// The preceding code is equivalent to this one
+
+function curly() {
   return undefined;
   // this code is not reachable
   {
@@ -282,7 +279,7 @@ function curly(){
 }
 
 // Good
-function curly(){
+function curly() {
   return {
     name: 'name'
   };
@@ -291,9 +288,7 @@ function curly(){
 
 Always use semicolon and don't trust JS to implicitly insert it for you.
 
-#### White Space
-
-Some awesome resources for JavaScript Style Guide
+Some awesome resources for JavaScript Style Guide.
 
 - [idiomatic.js](https://github.com/rwaldron/idiomatic.js)
 - [airbnb JavaScript Style Guide](https://github.com/airbnb/javascript)
@@ -342,9 +337,6 @@ In some cases some developers use `_` underscore prefix such as a convention for
 #### Writing Comments
 
 ->  In this book we don't use many comments; we try to make our programs self-documenting by using descriptive names.
-    [SICP](http://mitpress.mit.edu/sicp/full-text/book/book-Z-H-15.html#footnote_Temp_197)
-
-[ I've never seen a language's style guide recommend avoiding comments before](https://news.ycombinator.com/item?id=8073230)
 
 #### Writing API Docs
 
@@ -360,7 +352,6 @@ Try to peer review your code with your coworker, so you will get a feedback abou
 Minification is the process of eliminating white space, comments to decrease the size of the JavaScript that will be transfered from the server to the browser, this will help increase the performance.
 
 [Minify files with UglifyJS](https://github.com/gruntjs/grunt-contrib-uglify)
-
 
 #### Use Lint tool
 

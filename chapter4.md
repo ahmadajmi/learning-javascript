@@ -10,12 +10,12 @@ Main features of Functions in JS
 - Can be created dynamically at runtime, during the execution of the program.
 - Can be assigned to a variable.
 - Can have their references copied to another variable.
-- can be augmented.
+- Can be augmented.
 - For special cases can be deleted.
-- can be passed as arguments to another functions and be returned by another functions.
+- Can be passed as arguments to another functions and be returned by another functions.
 - Can have their properties and methods.
 
-When you are you think of a function, think of an object with only special features that this object is invokable, meaning it can be executed.
+When you think of a function, think of an object with only special features that this object is invokable, meaning it can be executed.
 
 ##### Functions scope:
 
@@ -33,7 +33,7 @@ var square = function square(x) {
 square.name; // => "square"
 ```
 
-The above example which is called a named function expression, if you skip the second `square` name it's names becomes unnamed function expression or simply as function expression or anonymous function as:
+The above example which is called a named function expression, if you skip the second `square` name it's name becomes unnamed function expression or simply as function expression or anonymous function as:
 
 ``` javascript
 var square = function (x) {
@@ -63,7 +63,7 @@ Function declarations on the other hand can only defined in the program code, so
 
 #### Callback Pattern
 
-We already know that functions are objects, so that they can be passed as a parameters to another functions.
+We already know that functions are objects, so that they can be passed as a parameter to another function.
 
 ``` javascript
 function getName(name, callback) {
@@ -78,7 +78,7 @@ function printName(name) {
 getName("Ahmad", printName);
 ```
 
-In the above example we passed the `printName` function as a parameter to the `getName` function, so in this case the `printName` is called a callback function. We passed it as a parameter without the parentheses and then when the callback is executed, we will add the parentheses.
+In the above example we passed the `printName` function as a parameter to the `getName` function, so in this case the `printName` is called a callback function.
 
 The callback function can be passed directly as
 
@@ -109,10 +109,10 @@ function getName(name, callback) {
 Suppose the callback function is an object method and not a normal function, and if the method uses `this` to refer to another object property, this can cause a problem. for example suppose that we want to log the object name in the object method and use this method as a callback. in this case the `this.name` will refer to the global object
 
 ``` javascript
-var myApp = {
-  name: 'Ahmad',
-  method: function(arg) {
-    console.log(this.name);
+var app = {
+  myName: 'Ahmad',
+  method: function() {
+    console.log(this.myName);
   }
 };
 
@@ -120,24 +120,24 @@ function getName(callback) {
   callback();
 }
 
-getName(myApp.method); // => ""
+getName(app.method); // Uncaught TypeError: Cannot read property 'myName' of undefined
 ```
 
 The solution to this problem is to pass another parameter to the `getName` function as the object that this callback belongs to and then use we will modify the execution of the callback to bind the object we passed as.
 
 ``` javascript
-var myApp = {
-  name: 'Ahmad',
-  method: function(arg) {
-    console.log(this.name);
+var app = {
+  myName: 'Ahmad',
+  method: function() {
+    console.log(this.myName);
   }
 };
 
-function getName(callback, callback_obj) {
-  callback.call(callback_obj);
+function getName(callback, object) {
+  callback.call(object);
 }
 
-getName(myApp.method, myApp); // => "Ahmad
+getName(app.method, app); // "Ahmad
 ```
 
 #### Asynchronous Event Listeners
@@ -145,17 +145,19 @@ getName(myApp.method, myApp); // => "Ahmad
 Let's take a client side example of callback, if you want to listen to the click on the body of the page and then attach a callback after click, we can make something like this.
 
 ``` javascript
-document.body.addEventListener('click', function() { console.log('clicked'); }, true);
+document.addEventListener('click', function() {
+  console.log('Ahmad');
+});
 ```
 
 Notice how we passes a callback function directly to be called after the body is clicked, we can also define the function anywhere and call it by name like.
 
 ``` javascript
 function printName() {
-  console.log('Name');
+  console.log('Ahmad');
 }
 
-document.body.addEventListener('click', printName(), true);
+document.addEventListener('click', printName);
 ```
 
 Another example of callback can be used with `setTimeout()` and `setInterval()` window methods.
@@ -178,29 +180,27 @@ In this example we passes the `printName` function as a callback function, notic
 Function can return another function as the returned value, consider this example
 
 ``` javascript
-function printName() {
-  console.log('Name is Ahmad form the outer function');
+function print() {
+  console.log('Outer function');
   return function() {
-    console.log('Name is Ahmad form the inner function')
+    console.log('Inner function')
   }
 }
 
-var ahmad = printName();
-// "Name is Ahmad form the outer function"
+var name = printName(); // Outer function
 
-ahmad();
-// "Name is Ahmad form the inner function"
+name(); // Inner function
 ```
 
-What we have seen above is that `printName()` will return another anonymous function that we can call later by `ahmad()`
+What we have seen above is that `printName()` will return another anonymous function that we can call later by `name()`
 
 Lets write the above example in another favor and add a name to the inner function and then return it. this will give us the same result as the above code.
 
 ``` javascript
-function printName() {
-  console.log('Name is Ahmad form the outer function');
+function print() {
+  console.log('Outer function');
   function inner() {
-    console.log('Name is Ahmad form the inner function')
+    console.log('Inner function')
   }
   return inner;
 }
@@ -209,20 +209,19 @@ function printName() {
 But what happened if we returned the `inner` function and execute it at the same time. this will evaluate it as soon as we call the `printName` function.
 
 ``` javascript
-function printName() {
-  console.log('Name is Ahmad form the outer function');
+function print() {
+  console.log('Outer function');
   function inner() {
-    console.log('Name is Ahmad form the inner function==')
+    console.log('Inner function')
   }
   return inner();
 }
 
-var ahmad = printName();
+var name = print();
 
-// "Name is Ahmad form the outer function"
-// "Name is Ahmad form the inner function"
+// "Outer function"
+// "Inner function"
 
-ahmad();
-// ahmad is not a function
-
+name();
+// name is not a function
 ```

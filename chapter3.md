@@ -6,7 +6,7 @@ Objects are a list of key-value pairs.
 
 Values can be primitives or other objects (properties), also values can be functions (methods).
 
-Objects are mutable at any time, so you can add, change, remove properties any time. To make the object immutable you can use [Object.freeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
+Objects are mutable at any time, so you can add, change, remove properties. To make the object immutable you can use [Object.freeze()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze).
 
 On the other hand immutable means that things can't be changed or modified.
 
@@ -28,9 +28,9 @@ delete object.name;
 object.name; // undefined
 ```
 
-#### Javascript object constructor vs object literal.
+#### JavaScript Object constructor vs Object literal.
 
-There is no classes in JS, but is has constructor functions which uses syntax similar to class based languages.
+There is no classes in JS, but has constructor functions which uses syntax similar to class based languages.
 
 Objects can be used by your own constructor functions or some built-in JS objects like `Date()` and `Object()`.
 
@@ -40,14 +40,9 @@ So now we can see two ways to create a new object
 // using the Object constructor
 var obj = new Object();
 
-// using the object literal
+// using the Object literal
   var obj = { };
 ```
-
-##### object literal pros
-
-- Shorter to type
-- Emphasizes that objects are simple mutable hashes and not something that needs to be backed from a class.
 
 ##### More info
 
@@ -55,7 +50,7 @@ var obj = new Object();
 
 On the other hand there is a trick when using the `new Object()` to consider it when seeing it used in other code or when you think about using it.
 
-The `new Object()` can accept a parameter and depending on this parameter it will delegate the object creation to another built-in constructor and return a different object.
+The `new Object()` can accept a parameter and depending on this parameter it will delegate the Object creation to another built-in constructor and return a different Object.
 
 ``` javascript
 var obj = new Object();
@@ -93,16 +88,16 @@ ahmad.hi(); // => "Hi Ahmad"
 What happens when you invoke `Perosn` constructor function with `new`
 
 - An empty object is created and referenced by `this` variable, inheriting the prototype of the function.
-- Properties and methods are added to the object referenced by `this`.
-- The newly created object is referenced by `this` is returned at the end implicitly (if no other object is returned explicitly).
+- Properties and methods are added to the Object referenced by `this`.
+- The newly created Object is referenced by `this` is returned at the end implicitly (if no other Object is returned explicitly).
 
 We can see how the above code is doing behind the scenes as:
 
 ``` javascript
 var Person = function(name) {
 
-  // create new object
-  // using the object literal
+  // create new Object
+  // using the Object literal
   // var this = {};
   // or more accurate
   // var this = Object.create(Person.prototype); // this will be discussed later on the book
@@ -120,19 +115,19 @@ var ahmad = new Person('Ahmad');
 ahmad.hi(); // => "Hi Ahmad"
 ```
 
-As we said the newly created object referenced by `this` is returned at the end implicitly, so what if we returned an object explicitly as
+As we said the newly created object referenced by `this` is returned at the end implicitly, so what if we returned an Object explicitly as:
 
 ``` javascript
 var Person = function(name) {
   this.name = name;
-  this.hi = function() {
+  this.sayHi = function() {
     return 'Hi' + this.name;
   };
 
   // Let's return something
-  // This should be an object
-  // If the returned is something not an object it's simply
-  // ignored and the object referenced by `this` will be returned instead
+  // This should be an Object
+  // If the returned is something that is not an Object it's simply
+  // ignored and the Object referenced by `this` will be returned instead
   return {
     foo: 'foo',
     bar: 'bar'
@@ -141,12 +136,12 @@ var Person = function(name) {
 
 var ahmad = new Person('Ahmad');
 
-ahmad.hi(); // => ahmad.hi is not a function :) (:
+ahmad.sayHi(); // => ahmad.sayHi is not a function :) (:
 
 ahmad.foo; // => 'foo'
 ```
 
-For the methods inside the constructor, it's recommended to the `hi` method to the prototype of the `Person`. The problem is every time you call the `new Person()` a new function is created in the memory and this is inefficient because `say()` method doesn't change from one instance to the next.
+For the methods inside the constructor, it's recommended to the `sayHi` method to the prototype of the `Person`. The problem is that every time you call the `new Person()` a new function is created in the memory and this is inefficient because `sayHi()` method doesn't change from one instance to the next.
 
 So next time reusable members such as methods should be added to the prototype.
 
@@ -155,13 +150,13 @@ var Person = function(name) {
   this.name = name;
 };
 
-Person.prototype.hi = function() {
+Person.prototype.sayHi = function() {
   return 'Hi ' + this.name;
 }
 
 var ahmad = new Person('Ahmad');
 
-ahmad.hi(); // => "Hi Ahmad"
+ahmad.sayHi(); // => "Hi Ahmad"
 ```
 
 #### Calling the constructor without using `new`
@@ -196,12 +191,11 @@ function Server() {
   this.url = '/socket.io';
 }
 
-//
 var ws = Server();
 ws.url; // => "/socket.io"
 
 var ws = new Server();
-  ws.url; // => "/socket.io"
+ws.url; // => "/socket.io"
 ```
 
 So now there will no be any issues if the end developer called the `Server` constructor without the `new` keyword. You can read more about this on [Simple “Class” Instantiation](http://ejohn.org/blog/simple-class-instantiation/).
@@ -213,7 +207,7 @@ So now there will no be any issues if the end developer called the `Server` cons
 
 #### Using that
 
-Somethimes `this` can refer to another scope and refer to something else, for example suppose you want to call a constructor method inside a DOM event, in this case `this` will refer to the DOM element not the created object.
+Somethimes `this` can refer to another scope and refer to something else, for example suppose you want to call a constructor method inside a DOM event, in this case `this` will refer to the DOM element not the created Object.
 
 ``` html
 <button id="button">Alert Name</button>
@@ -237,7 +231,7 @@ element.addEventListener('click', ahmad.sayHi); // => Ahmad
 
 [Demo](http://jsbin.com/degaja/1/)
 
-The solution above will assing `this` to `that` then we can and access the name property inside the `sayHi` method from `that`, so this can be called without issues inside the DOM call.
+The solution above will assing `this` to `that` then we can and access the name property inside the `sayHi` method from `that`, so `this` can be called without issues inside the DOM call.
 
 Another solution is to assign an empty `that` object and add properties and methods to it and then return it. But with this solution you lost the `prototype` of the constructor.
 
@@ -283,7 +277,7 @@ Using the `typeof` operator is not accurate as it will return `"object"`.
 
 ``` javascript
 var arr = [1,2,3,4];
-typeof arr; // => object
+typeof arr; // => "object"
 ```
 
 To check if the variable is exactly array or not we can use `Array.isArray(obj)` method that will return `true` or `false`.
@@ -302,11 +296,11 @@ JSON (JavaScript Object Notation) is a data transfer format. It's actually a com
 ``` javascript
 var json = '{"name": "Ahmad", "age": 89, "friends": [1,2,3]}';
 
-// To convert json to object, use JSON.parse() method
+// To convert JSON to Object, use JSON.parse() method
 var data = JSON.parse(json);
 data.name; // => Ahmad
 
-// To convert object to json format, use JSON.stringify() method
+// To convert Object to JSON format, use JSON.stringify() method
 var object = {name: "Ahmad", age: 89, friends: [1,2,3]};
 var json = JSON.stringify(object);
 json; // => "{"name":"Ahmad","age":89,"friends":[1,2,3]}"
@@ -367,15 +361,14 @@ var number_object = new Number(90);
 typeof number_object; // => "object"
 ```
 
-If you wonder how you can call a method such as `toUpperCase()` on a primitive string, Javascript will temporarily convert the primitive into an object behind the scenes and behaves as it was an object.
+If you wonder how you can call a method such as `toUpperCase()` on a primitive string, JavaScript will temporarily convert the primitive into an Object behind the scenes and behaves as it was an Object.
 
 ``` javascript
 // In the prevous regex example we used the replace method on the string
-var remove_space = "spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
+"spaces will be removed".replace(/\s/gm, ''); // => "spaceswillberemoved"
 
 // It's the same way as
-var remove_space = new String("spaces will be removed");
-remove_space.replace(/\s/gm, ''); // => "spaceswillberemoved"
+new String("spaces will be removed").replace(/\s/gm, ''); // => "spaceswillberemoved"
 ```
 
 #### Error Objects
@@ -384,7 +377,7 @@ JavaScript includes some built-in error constructor such as `Error()` and `Synta
 The created error object created by theses constructors have some properties like:
 
 - `name` - The name property of the constructor that created the object. (`Error` for example).
-- `message` - The string passted to the constructor when creating the object.
+- `message` - The string passed to the constructor when creating the object.
 
 You can use the `throw` statement with any object not just with the built-in constructors so you can customize your own error.
 
