@@ -219,9 +219,167 @@ function print() {
 
 var name = print();
 
+// =>
 // "Outer function"
 // "Inner function"
 
 name();
 // name is not a function
 ```
+
+
+#### Self-Defining Functions
+
+Also called lazy function definition
+
+``` javascript
+function selfFunction() {
+  console.log('foo');
+  selfFunction = function() {
+    console.log('foo bar');
+  }
+}
+
+selfFunction(); // foo
+selfFunction(); // foo bar
+```
+
+
+#### Immediate Functions
+
+The immediate functions also called "Immediately-invoked function expression" [IIFE](en.wikipedia.org/wiki/Immediately-invoked_function_expression) is a design pattern which prevent things from being created in the global scope. Another use case is the function is immediately invoked.
+
+``` javascript
+(function() {
+  var x = 'foo';
+  console.log(x);
+}());
+```
+
+You can also pass an argument as
+
+``` javascript
+(function(x) {
+  console.log(x);
+}('foo'));
+```
+
+##### Returned values from Immediate Functions
+
+You can assign an immediate function to a variable to return a value assigned to that variable.
+
+``` javascript
+var res = (function() {
+  return 20;
+})();
+
+console.log(res); // 20
+```
+
+You can also omit the parentheses that wrap the function because they are not required when you assign the returned value of an immediate function to a variable.
+
+``` javascript
+var res = function() {
+  return 20;
+}();
+
+console.log(res); // 20
+```
+
+You can also return another function form the immediate function and assign it to a variable.
+
+``` javascript
+var getRes = (function() {
+  var res = 300;
+
+  return function() {
+    return res;
+  };
+
+})();
+
+console.log(getRes); // function
+console.log(getRes()); // 300
+```
+
+Another way of using the immediate function is to use them when you define object properties.
+
+``` javascript
+var object = {
+  message: (function() {
+    return "this is a message";
+  })(),
+  getMessage: function() {
+    return this.message;
+  }
+};
+
+console.log(object.message); // this is a message
+console.log(object.getMessage()); //this is a message
+```
+
+#### Function Properties - Memoization Pattern
+
+Memoization is a technique used to cache the result (return value) of a function, so the next time the function is called, it doesn't have to recalculate redo potentially heavy computation. So the function can use objects the remember the results of the previous operation.
+
+[Faster JavaScript Memoization For Improved Application Performance]:http://addyosmani.com/blog/faster-javascript-memoization/
+
+#### Configuration Objects
+
+The configuration object pattern is a way to provide cleaner APIs, especially if you’re building a library or any other code that will be consumed by other programs.
+
+Configuration Objects is used to create an object to be passed as a parameter to another function instead of adding more and more parameters to the function.
+
+Consider the following example
+
+``` javascript
+function addPerson(firstName, lastName) { }
+```
+
+Later you may want to add age, address and gender, so the previous function may look like
+
+``` javascript
+function addPerson(firstName, lastName, age, address, gender) { }
+```
+
+A better solution is to use a configuration object
+
+``` javascript
+var conf = {
+  firstName: "Ahmad",
+  lastName: "Ajmi",
+  age: 27
+}
+
+addPerson(conf);
+```
+
+#### Curry
+
+Let's see by a simple example what a curry function is, suppose we can transform the function
+
+``` javascript
+function square(x, y) {
+    return x * y;
+}
+```
+
+into the following function
+
+``` javascript
+function currySquare(x) {
+    return function(y) {
+        return x * y;
+    };
+}
+
+var square = currySquare(4);
+
+square(4);
+```
+
+the purpose of `currySquare` function is to return another function that multiplies `x` by `y`.
+
+###### When to use currying
+
+- When you find yourself calling the same function and passing mostly the same parameters.
